@@ -11,7 +11,7 @@ async function bootstrap() {
       'The Easywa API is whatsapp easy API for general purpose of usages.',
     )
     .setVersion('1.0')
-    .addTag('easywa')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
