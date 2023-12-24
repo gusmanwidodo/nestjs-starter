@@ -1,14 +1,19 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, UseGuards, Request } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
+import { UsersService } from './users.service';
 
 @ApiBearerAuth()
 @ApiTags('users')
 @UseGuards(AuthGuard('jwt'))
 @Controller('users')
 export class UsersController {
-  @Get()
-  findAll(): string {
-    return 'This action returns all cats';
+  constructor(private usersService: UsersService) {}
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('profile')
+  async getProfile(@Request() req) {
+    console.log('req', req);
+    return req.user;
   }
 }
